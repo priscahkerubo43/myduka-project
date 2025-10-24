@@ -86,5 +86,10 @@ def product_profit():
     profit=curr.fetchall()
     return profit
 
+# def product_sale():
+#     query='select p.name,p.id,sum((p.selling_price-p.buying_price)*s.quantity)as profit from sales as s inner join products as p on s.pid=p.id group by p.name,p.id;'
+#     curr.execute(query)
+#     sales=curr.fetchall()
+#     return sales
 
 
