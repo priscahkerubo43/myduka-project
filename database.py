@@ -37,11 +37,11 @@ def fetch_data(table_name):
 
 
 products = fetch_data('products')
-print(products)
+# print(products)
 stock = fetch_data('stock')
-print(stock)
+# print(stock)
 sales = fetch_data('sales')
-print(sales)
+# print(sales)
 
 # function to insert products
 
@@ -55,7 +55,7 @@ def insert_products(values):
 new_product = ('mango', 60, 100)
 insert_products(new_product)
 products = fetch_data('products')
-print(products)
+# print(products)
 
 
 def insert_sales(values):
@@ -66,7 +66,7 @@ def insert_sales(values):
 
 new_sale = [6, 10]
 sales = fetch_data('sales')
-print(sales)
+# print(sales)
 
 
 def insert_stock(values):
@@ -77,7 +77,7 @@ def insert_stock(values):
 
 new_stock = [2, 20]
 stock = fetch_data('stock')
-print(stock)
+# print(stock)
 
 
 def product_profit():
