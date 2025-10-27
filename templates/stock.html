@@ -8,7 +8,7 @@
 
 <body>
 <h2>My stock</h2>
-<p>{{mystock}}</p>
+<!-- <p>{{mystock}}</p> -->
 
   <table border="1">
     <tr>
@@ -16,21 +16,16 @@
       <th>Product ID (pid)</th>
       <th>Stock Quantity</th>
     </tr>
+    {%for mystock in mystock %}
     <tr>
-      <td></td>
-      <td></td>
-      <td></td>
+      <td>{{mystock[0]}}</td>
+      <td>{{mystock[1]}}</td>
+      <td>{{mystock[2]}}</td>
+      <td>{{mystock[3]}}</td>
     </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
+    {% endfor %}
+ 
+   
   </table>
 </body>
 </html>

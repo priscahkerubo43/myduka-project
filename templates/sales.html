@@ -9,7 +9,7 @@
 </head>
 <body>
     <h1>My sales</h1>
-    <p>{{mysales}}</p>
+    <!-- <p>{{mysales}}</p> -->
 
 
   <table border="1">
@@ -19,24 +19,17 @@
       <th>Quantity</th>
       <th>Created At</th>
     </tr>
+    {% for mysale in mysales %}
     <tr>
-      <td>1</td>
-      <td></td>
-      <td></td>
-      <td></td>
+      <td>{{mysale[0]}}</td>
+      <td>{{mysale[1]}}</td>
+      <td>{{mysale[2]}}</td>
+      <td>{{mysale[3]}}</td>
     </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
+    {%endfor%}
+    
+ 
+   
   </table>
 </body>
 </html>

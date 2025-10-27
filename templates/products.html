@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>My products</h1>
-    <p>{{myproducts}}</p>
+    <!-- <p>{{myproducts}}</p> -->
   <head>
   
 </head>
@@ -15,30 +15,23 @@
   <h2>Products</h2>
 
   <table border="1">
+   
     <tr>
       <th>ID</th>
       <th>Name</th>
       <th>Buying Price</th>
       <th>Selling Price</th>
     </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
+      {%for myproduct in myproducts %}
+      <tr>
+      <td>{{myproduct[0]}}</td>
+      <td>{{myproduct[1]}}</td>
+      <td>{{myproduct[2]}}</td>
+      <td>{{myproduct[3]}}</td>
     </tr>
-    <tr>
-      <td>2</td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
+    {% endfor %}
+ 
+ 
   </table>
 </body>
 </html>
