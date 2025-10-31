@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dashboard</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/dashboard.css">
+
+
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">MYDUKA</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-link active active" aria-current="page" href="/">Home</a>
+                    <a class="nav-link active" href="/products">Products</a>
+                    <a class="nav-link active" href="/sales">Sales</a>
+                    <a class="nav-link active" href="/stock">Stock</a>
+                    <a class="nav-link active" href="/dashboard">Dashboard</a>
+
+                </div>
+            </div>
+        </div>
+    </nav>
+</head>
+
+<body style="padding-top: 70px;">
+    <h1 style="text-align: center;">My dashboard</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+
+                <canvas id="bar-chart" width="800" height="450"></canvas>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-6">
+                <canvas id="line-chart" width="800" height="450"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <canvas id="bar-chart" width="800" height="450"></canvas>
+
+
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.5.0/chart.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Bar chart
+    new Chart(document.getElementById("bar-chart"), {
+        type: 'bar',
+        data: {
+            labels: ["Africa", "Asia", "Europe", "Latin America","North America"],
+            datasets: [
+                {
+                    label: "Population (millions)",
+                    backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
+                    data: [2478, 5267, 734, 784, 433]
+                }
+            ]
+        },
+        options: {
+            legend: { display: false },
+            title: {
+                display: true,
+                text: 'Predicted world population (millions) in 2050'
+            }
+        }
+    });
+
+
+    new Chart(document.getElementById("line-chart"), {
+        type: 'line',
+        data: {
+            labels: [1500, 1600, 1700, 1750, 1800, 1850, 1900, 1950, 1999, 2050],
+            datasets: [{
+                data: [86, 114, 106, 106, 107, 111, 133, 221, 783, 2478],
+                label: "Africa",
+                borderColor: "#3e95cd",
+                fill: false
+            }, {
+                data: [282, 350, 411, 502, 635, 809, 947, 1402, 3700, 5267],
+                label: "Asia",
+                borderColor: "#8e5ea2",
+                fill: false
+            }, {
+                data: [168, 170, 178, 190, 203, 276, 408, 547, 675, 734],
+                label: "Europe",
+                borderColor: "#3cba9f",
+                fill: false
+            }, {
+                data: [40, 20, 10, 16, 24, 38, 74, 167, 508, 784],
+                label: "Latin America",
+                borderColor: "#e8c3b9",
+                fill: false
+            }, {
+                data: [6, 3, 2, 2, 7, 26, 82, 172, 312, 433],
+                label: "North America",
+                borderColor: "#c45850",
+                fill: false
+            }
+            ]
+        },
+        options: {
+            title: {
+                display: true,
+                text: 'World population per region (in millions)'
+            }
+        }
+    });
+
+</script>
+
+
+
+
+</html>
