@@ -1,3 +1,98 @@
-body{
-    background-color: aqua;
+/* background color */
+
+h1{
+    color: plum;
 }
+
+/* Hero section */
+.hero {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  color: white;
+  background: linear-gradient(135deg, #3b82f6, #9333ea);
+  background-size: cover;
+  background-position: center;
+  font-family: 'Poppins', sans-serif;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  
+}
+
+.hero p {
+  font-size: 1.25rem;
+  max-width: 600px;
+  margin: auto;
+}
+
+.btn-primary {
+  background-color: #6366f1;
+  border: none;
+  border-radius: 30px;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #4f46e5;
+  transform: translateY(-2px);
+}
+
+.btn-outline-light {
+  border: 2px solid #fff;
+  color: #fff;
+  border-radius: 30px;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* .btn-outline-light:hover {
+  background-color: #fff;
+  color: #3b82f6;
+  
+} */
