@@ -1,7 +1,7 @@
 /* background color */
 
 h1{
-    color: plum;
+    color: blue;
 }
 
 /* Hero section */
@@ -53,9 +53,57 @@ h1{
   font-weight: 600;
   
 }
+.about-section {
+  background-color: #ffffff;
+  border-radius: 12px;
+}
 
+.about-section:hover {
+  transform: translateY(-3px);
+}
 
+.about-section h2 {
+  color: #007bff;
+}
 
+.about-section p {
+  line-height: 1.8;
+}
+.testimonials {
+  background: linear-gradient(135deg, #6c63ff, #4e9eff);
+  color: white;
+  border-radius: 10px;
+}
+
+.testimonials .card {
+  background-color: white;
+  color: #333;
+  border-radius: 15px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.testimonials .card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.testimonials img {
+  border: 3px solid #6c63ff;
+}
+.footer {
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer .social-icons a {
+  font-size: 1.3rem;
+  transition: color 0.3s ease;
+}
+
+.footer .social-icons a:hover {
+  color: #6c63ff; /* purple-blue hover color */
+}
 
 
 

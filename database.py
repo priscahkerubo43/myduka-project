@@ -11,6 +11,8 @@ connect = psycopg2.connect(
 )
 # declare cursor
 curr = connect.cursor()
+# Commit 
+conn=connect.commit
 
 # # database operations
 # curr.execute('select * from products;')
@@ -81,15 +83,32 @@ stock = fetch_data('stock')
 
 
 def product_profit():
-    query = 'select p.name,p.id,sum((p.selling_price-p.buying_price)*s.quantity) as total_profit from sales s inner join products p on s.pid=p.id group by p.name,p,id;'
+    query = 'select p.name,p.id,sum((p.selling_price-p.buying_price)*s.quantity) as total_profit from sales s inner join products p on s.pid=p.id group by p.name,p.id;'
     curr.execute(query)
     profit=curr.fetchall()
     return profit
 
-# def product_sale():
-#     query='select p.name,p.id,sum((p.selling_price-p.buying_price)*s.quantity)as profit from sales as s inner join products as p on s.pid=p.id group by p.name,p.id;'
-#     curr.execute(query)
-#     sales=curr.fetchall()
-#     return sales
+def product_sale():
+    query='select p.name,p.id,sum(p.selling_price*s.quantity)as profit from sales as s inner join products as p on s.pid=p.id group by p.name,p.id;'
+    curr.execute(query)
+    sales=curr.fetchall()
+    return sales
+
+def profit_day():
+    query='select date(sales.created_at) as sale_date,sum((products.selling_price-products.buying_price)*sales.quantity) as total_profit from sales  inner join products  on sales.pid=products.id group by date(sales.created_at) order by date(sales.created_at);'
+    curr.execute(query)
+    dayprofit=curr.fetchall()
+    return dayprofit
+
+def sale_day():
+    query='select date(s.created_at) AS sale_date, sum(p.selling_price*s.quantity)as profit from sales as s inner join products as p on s.pid=p.id group by date(s.created_at);'
+    curr.execute(query)
+    saleprofit=curr.fetchall()
+    return saleprofit
+
+def insert_users(user_values):
+    query='insert into users(full_name,email,password)values(%s,%s,%s);'
+    curr.execute(query,user_values)
+    connect.commit
 
 

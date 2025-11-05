@@ -1,5 +1,5 @@
-from flask import Flask, render_template,request,redirect,url_for
-from database import fetch_data,insert_products,insert_sales,insert_stock,product_profit
+from flask import Flask, render_template, request, redirect, url_for
+from database import fetch_data, insert_products, insert_sales, insert_stock, product_profit, product_sale, sale_day, connect, curr, profit_day, conn, insert_users
 # instance of the Flask class
 app = Flask(__name__)
 
@@ -17,22 +17,20 @@ def prods():
 
 
 # create a python function that receives data from ui to the severside
-@app.route('/add_products', methods=['GET','POST'])
+@app.route('/add_products', methods=['GET', 'POST'])
 def add_products():
     # checking method whether post or get
-    if request.method=='POST':
-        pname=request.form['name']
-        bp=request.form['buying_price']
-        sp=request.form['selling_price']
+    if request.method == 'POST':
+        pname = request.form['name']
+        bp = request.form['buying_price']
+        sp = request.form['selling_price']
         # storing them in one variable
-        new_product=(pname,bp,sp)
+        new_product = (pname, bp, sp)
         # print(new_product)
         # insert to database
         insert_products(new_product)
-    return redirect (url_for('prods'))
+    return redirect(url_for('prods'))
 
-
-   
 
 # create routes for sales and stock
 
@@ -41,61 +39,114 @@ def add_products():
 def sale():
     sales = fetch_data('sales')
     # fetch products
-    products=fetch_data('products')
+    products = fetch_data('products')
     # print(sales)
-    return render_template('sales.html', mysales=sales,products=products)
+    return render_template('sales.html', mysales=sales, products=products)
 
 # creating a python function that receives sales from the ui to the severe side then to the database
-@app.route('/add_sale', methods=['GET','POST'])
+
+
+@app.route('/add_sale', methods=['GET', 'POST'])
 def add_sale():
     # checking method whether post or get
-    if request.method=='POST':
-        pid=request.form['product_id']
-        sq=request.form['quantity']
+    if request.method == 'POST':
+        pid = request.form['product_id']
+        sq = request.form['quantity']
         # storing them in one variable
-        new_sales=(pid,sq)
+        new_sales = (pid, sq)
         # print(new_sales)
         # insert to database
         insert_sales(new_sales)
-    return redirect (url_for('sale'))
+    return redirect(url_for('sale'))
 
 
 @app.route('/stock')
 def stk():
     stock = fetch_data('stock')
     # fetching the products
-    products=fetch_data('products')
+    products = fetch_data('products')
     # print(stock)
-    return render_template('stock.html', mystock=stock,products=products)
+    return render_template('stock.html', mystock=stock, products=products)
 
 # create a python function that receives stock from the ui to the server then to the database
 
-@app.route('/add_stock', methods=['GET','POST'])
+
+@app.route('/add_stock', methods=['GET', 'POST'])
 def add_stock():
     # checking method whether post or get
-    if request.method=='POST':
-        pid=request.form['product_id']
-        sq=request.form['squantity']
+    if request.method == 'POST':
+        pid = request.form['product_id']
+        sq = request.form['squantity']
         # storing them in one variable
-        new_stock=(pid,sq)
+        new_stock = (pid, sq)
         # print(new_stock)
         # insert to database
         insert_stock(new_stock)
-    return redirect (url_for('stk'))
+    return redirect(url_for('stk'))
 
-# dashboard route 
+# dashboard route
+
+
 @app.route('/dashboard')
 def dashboard():
-    # what to be passed
-    # profit=product_profit
-    # product_names=[]
-    # product_profits=[]
-    # for i in profit:
-    #     product_names.append(i[0])
-    #     # product_profits.append(float(i[2]))
-    return render_template('dashboard.html')
+    profit = product_profit()
+    # print(profit)
+    product_names = []
+    product_profits = []
+    for i in profit:
+        product_names.append(i[0])
+        product_profits.append(float(i[2]))
 
-# ,product_names=product_names
+    sales = product_sale()
+    # print(sales)
+    pnames = []
+    psale = []
+    for i in sales:
+        pnames.append(i[0])
+        psale.append(float(i[2]))
+
+    # sales day
+    sday = sale_day()
+    # print(sday)
+    date = []
+    sl = []
+    for i in sday:
+        date.append(str(i[0]))
+        sl.append(float(i[1]))
+
+    # profit day
+    pday = profit_day()
+    # print(profit_day)
+    d = []
+    p = []
+    for i in pday:
+        d.append(str(i[0]))
+        p.append(float(i[1]))
+    print(p)
+    print(d)
+
+    return render_template('dashboard.html', product_profits=product_profits, product_names=product_names, psale=psale, pnames=pnames, sl=sl, date=date, p=p, d=d,)
+
+
+# Register route
+@app.route('/register',methods=['GET','POST'])
+def register():
+    if request.method == "POST":
+        username = request.form["username"]
+        email = request.form["email"]
+        password = request.form["password"]
+
+        new_user = (username, email, password)
+        insert_users(new_user)
+        return redirect(url_for('login'))
+
+    return render_template('register.html')
+
+
+# Login route
+@app.route('/login')
+def login():
+    return render_template('login.html')
 
 
 app.run(debug=True)
