@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
-from database import fetch_data, insert_products, insert_sales, insert_stock, product_profit, product_sale, sale_day, connect, curr, profit_day, conn, insert_users
+from database import fetch_data, insert_products, insert_sales, insert_stock, product_profit, product_sale, sale_day, connect, curr, profit_day, conn, insert_users, check_email
 # instance of the Flask class
 app = Flask(__name__)
 
@@ -129,7 +129,7 @@ def dashboard():
 
 
 # Register route
-@app.route('/register',methods=['GET','POST'])
+@app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == "POST":
         username = request.form["username"]
@@ -137,15 +137,40 @@ def register():
         password = request.form["password"]
 
         new_user = (username, email, password)
-        insert_users(new_user)
-        return redirect(url_for('login'))
+        # confirm email
+        check = check_email(email)
+        if check == None:
+            # check user
+            insert_users(new_user)
+            print('registeration successful')
+            return redirect(url_for('login'))
+        else:
+            print('user exists,use a different email or login')
+            return render_template('register.html')
 
     return render_template('register.html')
 
 
 # Login route
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def login():
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+
+        # check email
+        check = check_email(email)
+        if check == None:
+            print('user does not exist register')
+            return redirect(url_for('register'))
+        else:
+            # check if password matches users data
+            if password == check[3]:
+                print('login successfully')
+                return redirect(url_for('dashboard'))
+            else:
+                print('Wrong password or email')
+                return redirect(url_for('login.html'))
     return render_template('login.html')
 
 
